@@ -35,4 +35,6 @@ int menuClient()
   case 6:
     return 3;
     break;
-  }}
+  }
+  return 1;
+}

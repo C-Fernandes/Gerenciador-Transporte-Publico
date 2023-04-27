@@ -1,0 +1,4 @@
+all:
+	g++ -c main.cpp Client/client.cpp Admin/admin.cpp
+	g++ -o gerenciador client.o admin.o7
+	./gerenciador

@@ -5,6 +5,8 @@
 
 bool verificarAutorizacao(std::string senha);
 int menuAdmin();
+void listar(std::string nomeDoArquivo);
+void cadastrarOnibus(std::string nomeBus);
 
 
 

@@ -1,7 +1,7 @@
 #include "headerAdmin.hpp"
 #include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
+#include <fstream>
+#include <map>
 
 using namespace std;
 
@@ -27,53 +27,135 @@ int menuAdmin()
        << endl;
 
   cin >> entrada;
+  cin.ignore();
 
-  switch (entrada)
+  if (entrada == 1)
   {
-  case 1:
-    listar("onibus.txt");
-    return 1;
-    break;
-  case 2:
-    return 1;
-    break;
-  case 3:
-    return 1;
-    break;
-  case 4:
-    return 1;
-    break;
-  case 5:
-    return 1;
-    break;
-  case 6:
-    return 1;
-    break;
-  case 7:
-    listar("reclamacoes.txt");
-    return 1;
-    break;
-  case 8:
-    return 1;
-    break;
-  case 9:
-    return 2;
-    break;
-  case 10:
-    return 3;
-    break;
+    listar("./Arquivos/onibus.txt");
   }
+  if (entrada == 2)
+  {
+  }
+  if (entrada == 3)
+  {
+  }
+  if (entrada == 4)
+  {
+  }
+  if (entrada == 5)
+  {
+  }
+  if (entrada == 6)
+  {
+  }
+  if (entrada == 7)
+  {
+    listar("./Arquivos/reclamacoes.txt");
+  }
+  if (entrada == 8)
+  {
+    string nomeBus;
+    cout << "Informe o nome do ônibus que deseja cadastrar a rota:\n";
+    getline(cin, nomeBus);
+    cadastrarOnibus(nomeBus);
+  }
+  if (entrada == 9)
+  {
+    return 2;
+  }
+  if (entrada == 10)
+  {
+    return 3;
+  }
+
+  /*
+    switch (entrada)
+    {
+    case 1:
+
+      return 1;
+      break;
+    case 2:
+      return 1;
+      break;
+    case 3:
+      return 1;
+      break;
+    case 4:
+      return 1;
+      break;
+    case 5:
+      return 1;
+      break;
+    case 6:
+      return 1;
+      break;
+    case 7:
+      listar("../Arquivos/reclamacoes.txt");
+      return 1;
+      break;
+    case 8:
+      string nomeBus;
+      cout << "Informe o nome do ônibus que deseja cadastrar a rota:\n";
+      cin >> nomeBus;
+      cadastrarOnibus(nomeBus);
+      return 1;
+      break;
+    case 9:
+      return 2;
+      break;
+    case 10:
+      return 3;
+      break;
+    }
+    */
+  return 1;
 }
 
 void listar(std::string nomeDoArquivo)
 {
-  FILE *arq;
+  fstream arq;
   string leitura;
-  arq = fopen(nomeDoArquivo.c_str(), "r");
-  while (fscanf(arq, "\n", leitura) != NULL)
+  arq.open(nomeDoArquivo, ios::in);
+  while (getline(arq, leitura))
   {
-    cout << leitura << "\n"
-         << endl;
+    cout << leitura << endl;
   };
-  fclose(arq);
+  arq.close();
+}
+void cadastrarOnibus(std::string nomeBus)
+{
+  cout << "Entrou aqui\n";
+  string terminal, parada, paradas, onibus;
+  int retorno;
+  cout << "Informe o terminal do ônibus:\n";
+  getline(cin, terminal);
+  cout << "Adicione a primeira parada do ônibus:\n";
+  getline(cin, parada);
+
+  while (true)
+  {
+    cout << "Entrou no while\n";
+    paradas += "-" + parada;
+    cout << "Deseja adicionar mais uma parada?\n1-Sim\n2-Não\n";
+    cin >> retorno;
+    cin.ignore();
+    if (retorno == 1)
+    {
+      cout << "Informe a próxima parada: \n";
+      getline(cin, parada);
+    }
+    else
+    {
+      onibus = nomeBus + "-" + terminal + paradas + "\n";
+      fstream arq;
+      arq.open("./Arquivos/onibus.txt", ios::out);
+      cout << "Passou do abrir arquivo\n";
+      cout << onibus;
+      arq << onibus;
+      arq.close();
+      cout << "Fechou arquivo\n";
+      break;
+    }
+  };
 }
