@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-bool verificarAutorizacao(string senha);
+bool verificarAutorizacao(std::string senha);
 int menuAdmin();
 
 
