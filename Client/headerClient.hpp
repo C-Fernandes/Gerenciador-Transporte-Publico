@@ -2,11 +2,7 @@
 #define HEADERCLIENT_HPP
 #include <iostream>
 
-
-int menuClient();
-
-
-
-
+void listar(std::string nomeDoArquivo);
+void registrarReclamacao();
 
 #endif

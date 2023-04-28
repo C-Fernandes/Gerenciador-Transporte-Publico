@@ -6,9 +6,9 @@ using namespace std;
 
 int main()
 {
-    int retorno = 1;
+    bool continuar = true;
     int entrada;
-    while (retorno != 3)
+    while (continuar)
     {
         cout << "Informe o tipo de usuário:\n1 - Cliente\n2 - Administrador\n3 - "
                 "Encerrar\n";
@@ -17,9 +17,41 @@ int main()
 
         if (entrada == 1)
         {
-            while (retorno == 1)
+            while (true)
             {
-                retorno = menuClient();
+                int entrada;
+                cout << "Informe o que deseja fazer: \n1 - Consultar ônibus cadastrados\n2 - "
+                        "Buscar ônibus por bairro\n3 - Consultar itinerário\n4 - Fazer uma "
+                        "reclamação\n5 - Voltar\n6 - Fechar"
+                     << endl;
+                cin >> entrada;
+                cin.ignore();
+                // 1 - Não precisa encerrar
+                // 2 - Voltar para o menu anterior
+                // 3 - Encerrar programa
+                if (entrada == 1)
+                {
+                    listar("./Arquivos/onibus.txt");
+                }
+                if (entrada == 2)
+                {
+                }
+                if (entrada == 3)
+                {
+                }
+                if (entrada == 4)
+                {
+                    registrarReclamacao();
+                }
+                if (entrada == 5)
+                {
+                    break;
+                }
+                if (entrada == 6)
+                {
+                    continuar = false;
+                    break;
+                }
             }
         }
         if (entrada == 2)
@@ -35,7 +67,55 @@ int main()
                 cout << "--------------------------------------\nBem vindo "
                         "Administrador!\n--------------------------------------\n"
                      << endl;
-                retorno = menuAdmin();
+                int entrada;
+                cout << "Informe o que deseja fazer: \n1 - Listar ônibus cadastrados\n2 - "
+                        "Buscar ônibus por nome\n3 - Buscar ônibus por terminal\n4 - "
+                        "Atualizar terminal\n5 - Atualizar itinerário\n6 - Excluir um "
+                        "ônibus\n7 - Listar reclamações\n8 - Cadastrar ônibus\n9 - Voltar\n10 - Encerrar"
+                     << endl;
+
+                cin >> entrada;
+                cin.ignore();
+
+                if (entrada == 1)
+                {
+                    listar("./Arquivos/onibus.txt");
+                }
+                if (entrada == 2)
+                {
+                }
+                if (entrada == 3)
+                {
+                }
+                if (entrada == 4)
+                {
+                }
+                if (entrada == 5)
+                {
+                }
+                if (entrada == 6)
+                {
+                }
+                if (entrada == 7)
+                {
+                    listar("./Arquivos/reclamacoes.txt");
+                }
+                if (entrada == 8)
+                {
+                    string nomeBus;
+                    cout << "Informe o nome do ônibus que deseja cadastrar a rota:\n";
+                    getline(cin, nomeBus);
+                    cadastrarOnibus(nomeBus);
+                }
+                if (entrada == 9)
+                {
+                    break;
+                }
+                if (entrada == 10)
+                {
+                    continuar = false;
+                    break;
+                }
             }
             else
             {
@@ -45,6 +125,7 @@ int main()
         }
         if (entrada == 3)
         {
+            continuar = false;
         }
     }
     return 0;
