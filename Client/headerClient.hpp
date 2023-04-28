@@ -2,7 +2,8 @@
 #define HEADERCLIENT_HPP
 #include <iostream>
 
-void listar(std::string nomeDoArquivo);
+void listarOnibus();
 void registrarReclamacao();
+void consultarIntinerario(std::string nomeOnibus);
 
 #endif
