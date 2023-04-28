@@ -1,5 +1,8 @@
 #include "headerClient.hpp"
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
 
 using namespace std;
 
@@ -14,27 +17,49 @@ int menuClient()
   // 1 - Não precisa encerrar
   // 2 - Voltar para o menu anterior
   // 3 - Encerrar programa
-
-  switch (entrada)
+  if (entrada == 1)
   {
-  case 1:
-    return 1;
-    break;
-  case 2:
-    return 1;
-    break;
-  case 3:
-    return 1;
-    break;
-  case 4:
-    return 1;
-    break;
-  case 5:
-    return 2;
-    break;
-  case 6:
-    return 3;
-    break;
   }
+  if (entrada == 2)
+  {
+  }
+  if (entrada == 3)
+  {
+  }
+  if (entrada == 4)
+  {
+  }
+  if (entrada == 5)
+  {
+  }
+  if (entrada == 6)
+  {
+  }
+
   return 1;
+}
+
+void listar(std::string nomeDoArquivo)
+{
+  fstream arq;
+  string leitura, palavra;
+  vector<string> palavras;
+
+  arq.open(nomeDoArquivo, ios::in);
+  while (getline(arq, leitura))
+  {
+
+    cout << leitura << endl;
+    istringstream tokenizer{leitura};
+    while (getline(tokenizer, palavra, '-'))
+    {
+      palavras.push_back(palavra);
+    }
+    cout << "Nome do ônibus:" <<palavras[0]<<"\nTerminal: "<<palavras[1]<< endl;
+    for (int i = 2; i < palavras.size(); i++)
+    {
+      cout << palavras[i];
+    };
+  };
+  arq.close();
 }
