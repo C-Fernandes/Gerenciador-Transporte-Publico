@@ -26,18 +26,23 @@ int main()
                      << endl;
                 cin >> entrada;
                 cin.ignore();
-                // 1 - Não precisa encerrar
-                // 2 - Voltar para o menu anterior
-                // 3 - Encerrar programa
                 if (entrada == 1)
                 {
                     listarOnibus();
                 }
                 if (entrada == 2)
                 {
+                    string terminal;
+                    cout << "Informe o bairro para realizar a busca:" << endl;
+                    getline(cin, terminal);
+                    buscarPorTerminal(terminal);
                 }
                 if (entrada == 3)
                 {
+                    string nomeOnibus;
+                    cout << "Informe o nome do ônibus para consultar o itinerario:" << endl;
+                    getline(cin, nomeOnibus);
+                    consultarIntinerario(nomeOnibus);
                 }
                 if (entrada == 4)
                 {
@@ -64,11 +69,12 @@ int main()
             getline(cin, senha);
             verificacao = verificarAutorizacao(senha);
             if (verificacao)
-            {  cout << "--------------------------------------\n        Bem vindo Administrador!\n--------------------------------------\n"
-                         << endl;
+            {
+                cout << "--------------------------------------\n        Bem vindo Administrador!\n--------------------------------------\n"
+                     << endl;
                 while (true)
                 {
-                  
+
                     int entrada;
                     cout << "Informe o que deseja fazer: \n1 - Listar ônibus cadastrados\n2 - "
                             "Buscar ônibus por nome\n3 - Buscar ônibus por terminal\n4 - "
@@ -92,6 +98,10 @@ int main()
                     }
                     if (entrada == 3)
                     {
+                        string terminal;
+                        cout << "Informe o bairro para realizar a busca:" << endl;
+                        getline(cin, terminal);
+                        buscarPorTerminal(terminal);
                     }
                     if (entrada == 4)
                     {

@@ -30,8 +30,7 @@ void listarOnibus()
   };
   arq.close();
 }
-void registrarReclamacao()
-{
+void registrarReclamacao(){
   fstream arq;
   string reclamacao, data;
   arq.open("./Arquivos/reclamacoes.txt", ios::out | ios::app);
@@ -72,4 +71,31 @@ void consultarIntinerario(std::string nomeOnibus)
   }
   if (!encontrou)
     cout << "Ônibus não encontrado." << endl;
+}
+void buscarPorTerminal(std::string terminal){
+   fstream arq;
+  string linha, palavra;
+
+  bool encontrou = false;
+  arq.open("./Arquivos/onibus.txt", ios::in);
+  while (getline(arq, linha))
+  {
+    vector<string> palavras;
+    istringstream separacao(linha);
+    while (getline(separacao, palavra, '-'))
+    {
+      palavras.push_back(palavra);
+    }
+    if (palavras[1] == terminal)
+    {
+      encontrou = true;
+ 
+      cout << "Nome do ônibus: " << palavras[0] << endl;
+      separadorC();
+      break;
+    }
+  }
+  if (!encontrou)
+    cout << "Ônibus não encontrado." << endl;
+
 }
