@@ -112,11 +112,17 @@ int main()
                     }
                     if (entrada == 5)
                     {
-                        // Atualizar intinerario
+                        string onibus;
+                        cout << "Por favor, informe o nome do ônibus que deseja atualizar o itinerario:\n";
+                        getline(cin, onibus);
+                        atualizarItinerario(onibus);
                     }
                     if (entrada == 6)
                     {
-                        // Excluir Onibus
+                        string nomeBus;
+                        cout << "Informe o nome do ônibus que deseja excluir:\n";
+                        getline(cin, nomeBus);
+                        excluirOnibus(nomeBus);
                     }
                     if (entrada == 7)
                     {

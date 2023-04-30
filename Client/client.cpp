@@ -12,6 +12,7 @@ void linhaC()
 }
 void printarOnibus(vector<string> onibus)
 {
+  linhaC();
   cout << "Nome do ônibus:" << onibus[0] << "\nTerminal: " << onibus[1] << "\nIntinerario: "
        << endl;
 
@@ -19,7 +20,7 @@ void printarOnibus(vector<string> onibus)
   {
     cout << onibus[i] << endl;
   }
-  linhaC();
+  
 }
 vector<string> separadorLinha(std::string frase)
 {
@@ -92,6 +93,7 @@ void buscarPorTerminal(std::string terminal)
     if (palavras[1] == terminal)
     {
       encontrou = true;
+      cout << "\n";
       printarOnibus(palavras);
       linhaC();
       break;
