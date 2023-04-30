@@ -3,13 +3,34 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include <map>
 
 using namespace std;
 
-void separador()
+void linhaA()
 {
-  cout << "----------------------------------------------"<<endl;
+  cout << "----------------------------------------------" << endl;
+}
+void printarOnibusA(vector<string> onibus)
+{
+  cout << "Nome do ônibus:" << onibus[0] << "\nTerminal: " << onibus[1] << "\nIntinerario: "
+       << endl;
+
+  for (int i = 2; i < onibus.size(); i++)
+  {
+    cout << onibus[i] << endl;
+  }
+  linhaA();
+}
+vector<string> separadorLinhaA(std::string frase)
+{
+  vector<string> palavras;
+  string palavra;
+  istringstream separacao(frase);
+  while (getline(separacao, palavra, '-'))
+  {
+    palavras.push_back(palavra);
+  }
+  return palavras;
 }
 bool verificarAutorizacao(std::string senha)
 {
@@ -31,19 +52,9 @@ void listarOnibusAdmin()
   while (getline(arq, leitura))
   {
     vector<string> palavras;
-    istringstream tokenizer{leitura};
-    while (getline(tokenizer, palavra, '-'))
-    {
-      palavras.push_back(palavra);
-    }
-    cout << "Nome do ônibus:" << palavras[0] << "\nTerminal: " << palavras[1] << "\nIntinerario: "
-         << endl;
-
-    for (int i = 2; i < palavras.size(); i++)
-    {
-      cout << palavras[i] << endl;
-    }
-    separador();
+    palavras = separadorLinhaA(leitura);
+    printarOnibusA(palavras);
+    linhaA();
   };
   arq.close();
 }
@@ -107,24 +118,149 @@ void buscarOnibusPorNome(std::string nomeBus)
   while (getline(arq, leitura))
   {
     vector<string> palavras;
-    istringstream separacao(leitura);
-    while (getline(separacao, palavra, '-'))
-    {
-      palavras.push_back(palavra);
-    }
+    palavras = separadorLinhaA(leitura);
     if (palavras[0] == nomeBus)
     {
       encontrou = true;
-      separador();
-      cout << "Nome do ônibus: " << palavras[0] << "\nBairro: " << palavras[1] << "\nItinerario: \n";
-      for (int i = 2; i < palavras.size(); i++)
-      {
-        cout << palavras[i] << endl;
-      }
-      separador();
+      printarOnibusA(palavras);
+      linhaA();
       break;
     }
   }
   if (!encontrou)
     cout << "Não foi possivel encontrar o ônibus." << endl;
+}
+void atualizarTerminal(std::string nomeBus)
+{
+  fstream arq;
+  bool encontrou = false;
+  string leitura, palavra;
+  arq.open("./Arquivos/onibus.txt", ios::in | ios::out);
+  while (getline(arq, leitura))
+  {
+    vector<string> palavras = separadorLinhaA(leitura);
+    if (nomeBus == palavras[0])
+    {
+      encontrou = true;
+      string novoTerminal, atualizacao;
+      cout << "ônibus encontrado! Informe qual o novo nome do terminal:\n"
+           << endl;
+      getline(cin, novoTerminal);
+      atualizacao = palavras[0] + '-' + novoTerminal + '-';
+      for (int i = 2; i < palavras.size(); i++)
+      {
+        if (i < palavras.size() - 1)
+        {
+          atualizacao += palavras[i] + '-';
+        }
+        else
+        {
+          atualizacao += palavras[i];
+        }
+      }
+      int resposta;
+      while (true)
+      {
+        cout << "Deseja confirmar a atualização?\n1-Sim\n2-Não" << endl;
+        cin >> resposta;
+        cin.ignore();
+        if (resposta == 1)
+        {
+          arq << atualizacao;
+          cout << "Ônibus atualizado:" << endl;
+          palavras[1] = novoTerminal;
+          printarOnibusA(palavras);
+          break;
+        }
+        if (resposta == 2)
+        {
+          cout << "Atualização cancelada:" << endl;
+          printarOnibusA(palavras);
+          break;
+        }
+        else
+        {
+          cout << "Não entedi a resposta, tente novamente." << endl;
+        }
+      }
+      break;
+    }
+  }
+  if (!encontrou)
+    cout << "Ônibus não encontrado" << endl;
+}
+void atualizarItinerario(std::string nomeBus)
+{
+  fstream arq;
+  bool encontrou = false;
+  string leitura, palavra;
+  arq.open("./Arquivos/onibus.txt", ios::in | ios::out);
+  while (getline(arq, leitura))
+  {
+    vector<string> palavras = separadorLinhaA(leitura);
+    if (nomeBus == palavras[0])
+    {
+      encontrou = true;
+      vector<string> novoItinerario;
+      string atualizacao;
+      int resposta, contador = 1;
+      cout << "ônibus encontrado! Informe o novo do itinerario:\n"
+           << endl;
+      getline(cin, novoItinerario[0]);
+      while (true)
+      {
+        cout << "Deseja adicionar mais uma parada?\n1 - Sim\n2 - Não" << endl;
+        cin >> resposta;
+        cin.ignore();
+        if (resposta == 1)
+        {
+          cout << "Digite a próxima parada:" << endl;
+          getline(cin, novoItinerario[contador]);
+          contador++;
+        }
+        if (resposta == 2)
+        {
+          atualizacao = palavras[0] + '-' + palavras[1] + '-';
+          for (int i = 0; i < novoItinerario.size(); i++)
+          {
+            if (i != novoItinerario.size() - 1)
+            {
+              atualizacao += novoItinerario[i] + '-';
+            }
+            if (i == novoItinerario.size() - 1)
+            {
+              atualizacao += novoItinerario[i];
+            }
+          }
+          vector<string> novoOnibus = separadorLinhaA(atualizacao);
+
+          int resposta;
+          printarOnibusA(novoOnibus);
+          cout << "Deseja confirmar a atualização?\n1 - Sim\n2 - Não" << endl;
+          cin >> resposta;
+          cin.ignore();
+          while (true)
+          {
+            if (resposta == 1)
+            {
+              arq << atualizacao;
+              cout << "Ônibus atualizado!" << endl;
+              break;
+            }
+            if (resposta == 2)
+            {
+              cout << "Atualização cancelada!" << endl;
+              break;
+            }
+            else
+            {
+              cout << "Não entedi a resposta, tente novamente." << endl;
+            }
+          }
+        }
+      }
+    }
+    if (!encontrou)
+      cout << "Ônibus não encontrado" << endl;
+  }
 }

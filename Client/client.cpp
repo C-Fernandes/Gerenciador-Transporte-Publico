@@ -6,9 +6,31 @@
 
 using namespace std;
 
-void separadorC()
+void linhaC()
 {
   cout << "----------------------------------------------" << endl;
+}
+void printarOnibus(vector<string> onibus)
+{
+  cout << "Nome do ônibus:" << onibus[0] << "\nTerminal: " << onibus[1] << "\nIntinerario: "
+       << endl;
+
+  for (int i = 2; i < onibus.size(); i++)
+  {
+    cout << onibus[i] << endl;
+  }
+  linhaC();
+}
+vector<string> separadorLinha(std::string frase)
+{
+  vector<string> palavras;
+  string palavra;
+  istringstream separacao(frase);
+  while (getline(separacao, palavra, '-'))
+  {
+    palavras.push_back(palavra);
+  }
+  return palavras;
 }
 void listarOnibus()
 {
@@ -18,19 +40,13 @@ void listarOnibus()
   arq.open("./Arquivos/onibus.txt", ios::in);
   while (getline(arq, leitura))
   {
-    vector<string> palavras;
-    istringstream tokenizer{leitura};
-    while (getline(tokenizer, palavra, '-'))
-    {
-      palavras.push_back(palavra);
-    }
- 
-    cout << "Nome do ônibus:" << palavras[0] << " - Terminal: " << palavras[1] << endl;
-    separadorC();
+    vector<string> palavras = separadorLinha(leitura);
+    printarOnibus(palavras);
   };
   arq.close();
 }
-void registrarReclamacao(){
+void registrarReclamacao()
+{
   fstream arq;
   string reclamacao, data;
   arq.open("./Arquivos/reclamacoes.txt", ios::out | ios::app);
@@ -50,52 +66,37 @@ void consultarIntinerario(std::string nomeOnibus)
   arq.open("./Arquivos/onibus.txt", ios::in);
   while (getline(arq, linha))
   {
-    vector<string> palavras;
-    istringstream separacao(linha);
-    while (getline(separacao, palavra, '-'))
-    {
-      palavras.push_back(palavra);
-    }
+    vector<string> palavras= separadorLinha(linha);
     if (palavras[0] == nomeOnibus)
     {
       encontrou = true;
- 
-      cout << "Nome do ônibus: " << palavras[0] << "\nItinerario: \n";
-      for (int i = 2; i < palavras.size(); i++)
-      {
-        cout << palavras[i] << endl;
-      }
-      separadorC();
+      printarOnibus(palavras);
+      linhaC();
       break;
     }
   }
   if (!encontrou)
     cout << "Ônibus não encontrado." << endl;
 }
-void buscarPorTerminal(std::string terminal){
-   fstream arq;
+void buscarPorTerminal(std::string terminal)
+{
+  fstream arq;
   string linha, palavra;
 
   bool encontrou = false;
   arq.open("./Arquivos/onibus.txt", ios::in);
   while (getline(arq, linha))
   {
-    vector<string> palavras;
-    istringstream separacao(linha);
-    while (getline(separacao, palavra, '-'))
-    {
-      palavras.push_back(palavra);
-    }
+    vector<string> palavras = separadorLinha(linha);
+   
     if (palavras[1] == terminal)
     {
       encontrou = true;
- 
-      cout << "Nome do ônibus: " << palavras[0] << endl;
-      separadorC();
+      printarOnibus(palavras);
+      linhaC();
       break;
     }
   }
   if (!encontrou)
     cout << "Ônibus não encontrado." << endl;
-
 }

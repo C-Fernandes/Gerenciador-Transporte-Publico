@@ -8,5 +8,7 @@ void listarOnibusAdmin();
 void cadastrarOnibus(std::string nomeBus);
 void listarReclamacoes();
 void buscarOnibusPorNome(std::string nomeBus);
+void atualizarTerminal(std::string nomeBus);
+void atualizarItinerario(std::string nomeBus);
 
 #endif

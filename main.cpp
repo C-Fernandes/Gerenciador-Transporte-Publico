@@ -22,7 +22,7 @@ int main()
                 int entrada;
                 cout << "Informe o que deseja fazer: \n1 - Consultar ônibus cadastrados\n2 - "
                         "Buscar ônibus por bairro\n3 - Consultar itinerário\n4 - Fazer uma "
-                        "reclamação\n5 - Voltar\n6 - Fechar"
+                        "reclamação\n5 - Voltar\n0 - Fechar"
                      << endl;
                 cin >> entrada;
                 cin.ignore();
@@ -52,7 +52,7 @@ int main()
                 {
                     break;
                 }
-                if (entrada == 6)
+                if (entrada == 0)
                 {
                     continuar = false;
                     break;
@@ -105,12 +105,18 @@ int main()
                     }
                     if (entrada == 4)
                     {
+                        string onibus;
+                        cout << "Por favor, informe o nome do ônibus que deseja atualizar:\n";
+                        getline(cin, onibus);
+                        atualizarTerminal(onibus);
                     }
                     if (entrada == 5)
                     {
+                        // Atualizar intinerario
                     }
                     if (entrada == 6)
                     {
+                        // Excluir Onibus
                     }
                     if (entrada == 7)
                     {
