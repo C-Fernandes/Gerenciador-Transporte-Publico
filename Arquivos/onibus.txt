@@ -1,3 +1,2 @@
 1 onibus-1 terminal- parada-parada-parada
-2 onibus-2 terminal- parada-parada-parada
-4 onibus-4 terminal-1p-2 p-5 parada
+onibus teste-outro terminal-1 p-5 parada-prox parada-mais uma parada
