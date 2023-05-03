@@ -1,4 +1,5 @@
 #include "headerAdmin.hpp"
+#include "./Client/headerClient.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -6,35 +7,9 @@
 
 using namespace std;
 
-void linhaA() // Mesma função do client, apenas para printar linha, iehhh organização
-{
-  cout << "----------------------------------------------" << endl;
-}
-void printarOnibusA(vector<string> onibus) // Mesma função de printar ônibus aqui tbm
-{
-  linhaA();
-  cout << "Nome do ônibus:" << onibus[0] << "\nTerminal: " << onibus[1] << "\nIntinerario: "
-       << endl;
-
-  for (int i = 2; i < onibus.size(); i++)
-  {
-    cout << onibus[i] << endl;
-  }
-}
-vector<string> separadorLinhaA(std::string frase) // Também uma copia da função do client, apenas para separ as linhas puxadas do arquivo
-{
-  vector<string> palavras;
-  string palavra;
-  istringstream separacao(frase);
-  while (getline(separacao, palavra, '-'))
-  {
-    palavras.push_back(palavra);
-  }
-  return palavras;
-}
 bool verificarAutorizacao(std::string senha) // Verifica se a senha está correta ou não
 {
-  if (senha == "123")
+  if (senha == "admin")
   {
     return true;
   }
@@ -43,20 +18,7 @@ bool verificarAutorizacao(std::string senha) // Verifica se a senha está corret
     return false;
   }
 }
-void listarOnibusAdmin() // Lista os ônibus para o adm
-{
-  fstream arq;
-  string leitura, palavra;
 
-  arq.open("./Arquivos/onibus.txt", ios::in);
-  while (getline(arq, leitura))
-  {
-    vector<string> palavras;
-    palavras = separadorLinhaA(leitura);
-    printarOnibusA(palavras);
-  };
-  arq.close();
-}
 void listarReclamacoes() // Lista as reclamações para o adm
 {
   fstream arq;
@@ -111,11 +73,11 @@ void buscarOnibusPorNome(std::string nomeBus) // Função para buscar por nome, 
   while (getline(arq, leitura))
   {
     vector<string> palavras;
-    palavras = separadorLinhaA(leitura);
+    palavras = separadorLinha(leitura);
     if (palavras[0] == nomeBus)
     {
       encontrou = true;
-      printarOnibusA(palavras);
+      printarOnibus(palavras);
       break;
     }
   }
@@ -131,7 +93,7 @@ void atualizarTerminal(std::string nomeBus) // Função para atualizar terminal
   arq.open("./Arquivos/onibus.txt", ios::in);
   while (getline(arq, leitura))
   {
-    vector<string> palavras = separadorLinhaA(leitura);
+    vector<string> palavras = separadorLinha(leitura);
     if (nomeBus == palavras[0]) // Verifica se encontrou o ônibus
     {
       encontrou = true;
@@ -152,15 +114,15 @@ void atualizarTerminal(std::string nomeBus) // Função para atualizar terminal
         }
       }
       int resposta;
-      while (true) //Confirma atualização com o usuário
+      while (true) // Confirma atualização com o usuário
       {
 
         cout << "Deseja confirmar a atualização?\n1-Sim\n2-Não" << endl;
         palavras[1] = novoTerminal;
-        printarOnibusA(palavras); //Printa o onibus com o terminal atualizado
+        printarOnibus(palavras); // Printa o onibus com o terminal atualizado
         cin >> resposta;
         cin.ignore();
-        if (resposta == 1) //Se confirmar a atualização, atualiza a variavel leitura com todas as informações atualizadas
+        if (resposta == 1) // Se confirmar a atualização, atualiza a variavel leitura com todas as informações atualizadas
         {
           leitura = atualizacao;
           break;
@@ -168,7 +130,7 @@ void atualizarTerminal(std::string nomeBus) // Função para atualizar terminal
         if (resposta == 2)
         {
           cout << "Atualização cancelada:" << endl;
-          printarOnibusA(palavras);
+          printarOnibus(palavras);
           break;
         }
         else
@@ -199,7 +161,7 @@ void atualizarItinerario(std::string nomeBus)
   while (getline(arq, leitura))
   {
 
-    vector<string> palavras = separadorLinhaA(leitura);
+    vector<string> palavras = separadorLinha(leitura);
     if (nomeBus == palavras[0])
     {
       encontrou = true;
@@ -239,9 +201,9 @@ void atualizarItinerario(std::string nomeBus)
         }
       }
 
-      vector<string> novoOnibus = separadorLinhaA(atualizacao);
+      vector<string> novoOnibus = separadorLinha(atualizacao);
 
-      printarOnibusA(novoOnibus);
+      printarOnibus(novoOnibus);
       while (true)
       {
         cout << "Deseja confirmar a atualização?\n1 - Sim\n2 - Não" << endl;
@@ -289,7 +251,7 @@ void excluirOnibus(std::string nomeOnibus)
   arq.open("./Arquivos/onibus.txt", ios::in);
   while (getline(arq, leitura))
   {
-    vector<string> palavras = separadorLinhaA(leitura);
+    vector<string> palavras = separadorLinha(leitura);
     if (palavras[0] != nomeOnibus)
     {
       novaLista.push_back(leitura);

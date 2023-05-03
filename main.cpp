@@ -87,7 +87,7 @@ int main()
 
                     if (entrada == 1)
                     {
-                        listarOnibusAdmin();
+                        listarOnibus();
                     }
                     if (entrada == 2)
                     {

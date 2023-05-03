@@ -6,13 +6,13 @@
 
 using namespace std;
 
-void linhaC() // Função para printar linha
+void linha() // Função para printar linha
 {
   cout << "----------------------------------------------" << endl;
 }
 void printarOnibus(vector<string> onibus) // Função para printar qualquer ônibus
 {
-  linhaC();
+  linha();
   cout << "Nome do ônibus:" << onibus[0] << "\nTerminal: " << onibus[1] << "\nIntinerario: "
        << endl;
 
@@ -80,20 +80,20 @@ void consultarIntinerario(std::string nomeOnibus) // Função para consultar ôn
 void buscarPorTerminal(std::string terminal) // Função para buscar por Terminal
 {
   fstream arq;
-  string linha, palavra;
+  string leitura, palavra;
 
   bool encontrou = false;
   arq.open("./Arquivos/onibus.txt", ios::in);
-  while (getline(arq, linha))
+  while (getline(arq, leitura))
   {
-    vector<string> palavras = separadorLinha(linha);
+    vector<string> palavras = separadorLinha(leitura);
 
     if (palavras[1] == terminal) // Muda apenas que em vez de verificar a posição 0, verificaremos a posição 1, já que o terminal estará sempre salvo depois do nome, sua posição será sempre a 1
 
     {
       encontrou = true;
       printarOnibus(palavras);
-      linhaC();
+      linha();
       break;
     }
   }
