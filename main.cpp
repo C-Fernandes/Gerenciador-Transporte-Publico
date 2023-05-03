@@ -6,12 +6,14 @@ using namespace std;
 
 int main()
 {
+
+    cout << "##### BEM VINDO AO SISTEMA GERENCIADOR DE TRANSPORTE PÚBLICO #####\n" << endl;
     bool continuar = true;
     int entrada;
     while (continuar)
     {
-        cout << "Informe o tipo de usuário:\n1 - Cliente\n2 - Administrador\n3 - "
-                "Encerrar\n";
+        cout << "Informe o tipo de usuário que deseja acessar:\n1 - Cliente\n2 - Administrador\n3 - "
+                "Encerrar" << endl;
         cin >> entrada;
         cin.ignore();
 
@@ -54,6 +56,7 @@ int main()
                 }
                 if (entrada == 0)
                 {
+                     cout << "Encerrando o programa..." << endl;
                     continuar = false;
                     break;
                 }
@@ -142,6 +145,7 @@ int main()
                     if (entrada == 0)
                     {
                         continuar = false;
+                        cout << "Encerrando o programa..." << endl;
                         break;
                     }
                 }
@@ -154,6 +158,7 @@ int main()
         }
         if (entrada == 3)
         {
+             cout << "Encerrando o programa..." << endl;
             continuar = false;
         }
     }
