@@ -4,6 +4,7 @@
 #include <vector>
 
 using namespace std;
+
 void linha();
 void printarOnibus(vector<string> onibus);
 vector<string> separadorLinha(std::string frase);

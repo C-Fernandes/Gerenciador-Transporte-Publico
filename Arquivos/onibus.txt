@@ -1,2 +1,5 @@
-1 onibus-1 terminal- parada-parada-parada
-onibus teste-outro terminal-1 p-5 parada-prox parada-mais uma parada
+N-07;Alvorada IV;Terminal Alvorada IV;Av. Industrial, 150;Av. Industrial, 50;Av. Industrial, 26;Av. Boa Sorte, 2333;Av. Boa Sorte, 2053;Av. Boa Sorte, 1807;Av. Boa Sorte, 1335;Av. Das Fronteiras, 1173;Av. Das Fronteiras, 913;Av. Doutor João Medeiros Filho, 901 | Antiga Estação De Transferência Do Panatis
+N-29;Nova Natal;Av. Dos Caboclinhos, 958;Av. Da Chegança, 3196;Rua Bela Vista, 600;Av. Cidade Praia, 23 | Viaduto Das Fronteiras;Av. Senhor Do Bonfim, 2230;Rua Paranduva, 2932
+N-35;Soledade I;Terminal De Integração Do Soledade “Severino Ramos Monteiro”;Av. Senhor Do Bonfim, 2761;Av. Blumenau, 2882;Av. Florianópolis, 1200 | Estádio Piabão;Av. Doutor João Medeiros Filho, 1980 | Ápice Motel;Av. Doutor João Medeiros Filho, 2300 | Shopping Estação/Partage Norte Shopping;Av. Doutor João Medeiros Filho, 4020
+N-73;Santarém;Rua Ilha De Marajó, 1055 | Terminal Da Linha 73 Em Santarém;Av. Rio Doce, 615;Av. Das Fronteiras, 3376;Av. Itapetinga, 854;Av. Doutor João Medeiros Filho, 1985 | Policlínica Municipal Da Zona Norte;Av. Doutor João Medeiros Filho, 181 | Túnel
+O-33;Planalto;Rua Engenheiro João Hélio Alves Rocha, 699 | Terminal Do Planalto II;Rua Engenheiro João Hélio Alves Rocha, 2489;Rua Miramangue, 1265;Rua Miramangue, 537 | Redemais Planalto;Rua Serra Dos Carajás, 7980 | Antigo Arraiá Do Aquino;Rua Das Algarobas, 800;Rua Das Algarobas, 1900 | Fátima Cabelereira

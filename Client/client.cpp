@@ -13,20 +13,21 @@ void linha() // Função para printar linha
 void printarOnibus(vector<string> onibus) // Função para printar qualquer ônibus
 {
   linha();
-  cout << "Nome do ônibus:" << onibus[0] << "\nTerminal: " << onibus[1] << "\nIntinerario: "
+  cout << "Nome do ônibus: " << onibus[0] << "\nTerminal: " << onibus[1] << "\nIntinerario: "
        << endl;
 
   for (int i = 2; i < onibus.size(); i++)
   {
     cout << onibus[i] << endl;
   }
+  
 }
 vector<string> separadorLinha(std::string frase) // Função para separar em vector uma string(linha) retirada do arquivo
 {
   vector<string> palavras;
   string palavra;
   istringstream separacao(frase);
-  while (getline(separacao, palavra, '-')) // Separando as palavras por -
+  while (getline(separacao, palavra, ';')) // Separando as palavras por -
   {
     palavras.push_back(palavra);
   }
@@ -43,6 +44,7 @@ void listarOnibus() // Função listar onibus pro adm
     vector<string> palavras = separadorLinha(leitura); // utilizando a função para printar os ônibus sem -
     printarOnibus(palavras);
   };
+  linha();
   arq.close();
 }
 void registrarReclamacao() // Função para registrar reclamação
@@ -54,7 +56,7 @@ void registrarReclamacao() // Função para registrar reclamação
   getline(cin, data);
   cout << "Digite sua reclamação, não se preocupe, ela será feita de forma anônima." << endl;
   getline(cin, reclamacao);
-  data += '-' + reclamacao; // Adicionar - para cadastrar linha completa com ambos os dados no arquivo
+  data += ';' + reclamacao + "\n"; // Adicionar - para cadastrar linha completa com ambos os dados no arquivo
   arq << data;
 }
 void consultarIntinerario(std::string nomeOnibus) // Função para consultar ônibus por itinerario

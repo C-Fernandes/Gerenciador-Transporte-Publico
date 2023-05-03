@@ -1,5 +1,5 @@
 #include "headerAdmin.hpp"
-#include "./Client/headerClient.hpp"
+#include "../Client/headerClient.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -23,12 +23,15 @@ void listarReclamacoes() // Lista as reclamações para o adm
 {
   fstream arq;
   string leitura;
-
+vector<string> linhaR;
   arq.open("./Arquivos/reclamacoes.txt", ios::in);
+  linha();
   while (getline(arq, leitura))
   {
-    cout << leitura << endl;
+    linhaR = separadorLinha(leitura);
+    cout << linhaR[0] << " - " << linhaR[1] << endl;
   };
+  linha();
   arq.close();
 }
 void cadastrarOnibus(std::string nomeBus) // Função para adm cadastrar ônibus
@@ -42,7 +45,7 @@ void cadastrarOnibus(std::string nomeBus) // Função para adm cadastrar ônibus
 
   while (true) // Repetição para usuário cadastrar as paradas de forma ilimitada
   {
-    paradas += "-" + parada;
+    paradas += ";" + parada;
     cout << "Deseja adicionar mais uma parada?\n1-Sim\n2-Não\n";
     cin >> retorno;
     cin.ignore();
@@ -53,7 +56,7 @@ void cadastrarOnibus(std::string nomeBus) // Função para adm cadastrar ônibus
     }
     else // Caso o usuário tenha terminado de cadastrar todas as paradas
     {
-      onibus = nomeBus + "-" + terminal + paradas + "\n"; // Adiciona todas as informações na variavel ônibus divididas por -
+      onibus = nomeBus + ";" + terminal + paradas + "\n"; // Adiciona todas as informações na variavel ônibus divididas por -
       fstream arq;
       arq.open("./Arquivos/onibus.txt", ios::out | ios::app); // Abre o arquivo no fim para gravar o novo ônibus
       arq << onibus;
@@ -81,6 +84,7 @@ void buscarOnibusPorNome(std::string nomeBus) // Função para buscar por nome, 
       break;
     }
   }
+  linha();
   if (!encontrou)
     cout << "Não foi possivel encontrar o ônibus." << endl;
 }
@@ -101,12 +105,12 @@ void atualizarTerminal(std::string nomeBus) // Função para atualizar terminal
       cout << "ônibus encontrado! Informe qual o novo nome do terminal:\n"
            << endl;
       getline(cin, novoTerminal);                           // Pega o nome do novo terminal
-      atualizacao = palavras[0] + '-' + novoTerminal + '-'; // Adiciona o novo terminal e o nome, separados por - na string atualização
+      atualizacao = palavras[0] + ';' + novoTerminal + ';'; // Adiciona o novo terminal e o nome, separados por - na string atualização
       for (int i = 2; i < palavras.size(); i++)             // Adiciona o itinerario na string
       {
         if (i < palavras.size() - 1)
         {
-          atualizacao += palavras[i] + '-';
+          atualizacao += palavras[i] + ';';
         }
         else
         {
@@ -117,9 +121,10 @@ void atualizarTerminal(std::string nomeBus) // Função para atualizar terminal
       while (true) // Confirma atualização com o usuário
       {
 
-        cout << "Deseja confirmar a atualização?\n1-Sim\n2-Não" << endl;
         palavras[1] = novoTerminal;
         printarOnibus(palavras); // Printa o onibus com o terminal atualizado
+        linha();
+        cout << "Deseja confirmar a atualização?\n1-Sim\n2-Não" << endl;
         cin >> resposta;
         cin.ignore();
         if (resposta == 1) // Se confirmar a atualização, atualiza a variavel leitura com todas as informações atualizadas
@@ -185,12 +190,12 @@ void atualizarItinerario(std::string nomeBus)
         }
         if (resposta == 2)
         {
-          atualizacao = palavras[0] + '-' + palavras[1] + '-';
+          atualizacao = palavras[0] + ';' + palavras[1] + ';';
           for (int i = 0; i < novoItinerario.size(); i++)
           {
             if (i != novoItinerario.size() - 1)
             {
-              atualizacao += novoItinerario[i] + '-';
+              atualizacao += novoItinerario[i] + ';';
             }
             if (i == novoItinerario.size() - 1)
             {
@@ -206,6 +211,7 @@ void atualizarItinerario(std::string nomeBus)
       printarOnibus(novoOnibus);
       while (true)
       {
+        linha();
         cout << "Deseja confirmar a atualização?\n1 - Sim\n2 - Não" << endl;
         cin >> resposta;
         cin.ignore();
@@ -213,14 +219,14 @@ void atualizarItinerario(std::string nomeBus)
         if (resposta == 1)
         {
           leitura = atualizacao;
-          cout << leitura << endl;
-          cout << atualizacao << endl;
           cout << "Ônibus atualizado!" << endl;
+          linha();
           break;
         }
         if (resposta == 2)
         {
           cout << "Atualização cancelada!" << endl;
+          linha();
           break;
         }
         else
@@ -272,5 +278,7 @@ void excluirOnibus(std::string nomeOnibus)
   if (!encontrou)
     cout << "Ônibus não encontrado" << endl;
   if (encontrou)
-    cout << "Ônibus excluido com sucesso!" << endl;
+    linha();
+  cout << "Ônibus excluido com sucesso!" << endl;
+  linha();
 }
