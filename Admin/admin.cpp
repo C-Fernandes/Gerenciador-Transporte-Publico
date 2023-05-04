@@ -18,7 +18,6 @@ bool verificarAutorizacao(std::string senha) // Verifica se a senha está corret
     return false;
   }
 }
-
 void listarReclamacoes() // Lista as reclamações para o adm
 {
   fstream arq;
@@ -76,7 +75,7 @@ void buscarOnibusPorNome(std::string nomeBus) // Função para buscar por nome, 
   while (getline(arq, leitura))
   {
     vector<string> palavras;
-    palavras = separadorLinha(leitura);
+    palavras = separadorLinha(leitura); // Utilizando a função separador
     if (palavras[0] == nomeBus)
     {
       encontrou = true;
@@ -134,8 +133,7 @@ void atualizarTerminal(std::string nomeBus) // Função para atualizar terminal
         }
         if (resposta == 2)
         {
-          cout << "Atualização cancelada:" << endl;
-          printarOnibus(palavras);
+          cout << "Atualização cancelada!" << endl;
           break;
         }
         else
@@ -144,11 +142,11 @@ void atualizarTerminal(std::string nomeBus) // Função para atualizar terminal
         }
       }
     }
-    novaLista.push_back(leitura);
+    novaLista.push_back(leitura); //Adiciona a variavel leitura numa nova lista, para sobreescrever e atualizar o arquivo
   }
-  arq.close();
-  arq.open("./Arquivos/onibus.txt", ios::out);
-  for (int i = 0; i < novaLista.size(); i++)
+  arq.close(); //Fecha o arquivo
+  arq.open("./Arquivos/onibus.txt", ios::out);  //Abre pra escrita 
+  for (int i = 0; i < novaLista.size(); i++) //Sobreescreve o arquivo 
   {
     novaLista[i] += "\n";
     arq << novaLista[i];
@@ -156,7 +154,7 @@ void atualizarTerminal(std::string nomeBus) // Função para atualizar terminal
   if (!encontrou)
     cout << "Ônibus não encontrado" << endl;
 }
-void atualizarItinerario(std::string nomeBus)
+void atualizarItinerario(std::string nomeBus) // Função para atualizar itinerario, mesmo modelo da função para atualizar terminal
 {
   fstream arq;
   bool encontrou = false;
@@ -165,7 +163,6 @@ void atualizarItinerario(std::string nomeBus)
   arq.open("./Arquivos/onibus.txt", ios::in);
   while (getline(arq, leitura))
   {
-
     vector<string> palavras = separadorLinha(leitura);
     if (nomeBus == palavras[0])
     {
@@ -177,7 +174,7 @@ void atualizarItinerario(std::string nomeBus)
            << endl;
       getline(cin, novaParada);
       novoItinerario.push_back(novaParada);
-      while (true)
+      while (true) //A única mudança da função anterior, vai a grosso modo, perguntar quantas vezes o usário deseja adicionar outra parada
       {
         cout << "Deseja adicionar mais uma parada?\n1 - Sim\n2 - Não" << endl;
         cin >> resposta;
@@ -247,7 +244,7 @@ void atualizarItinerario(std::string nomeBus)
     arq << novaLista[i];
   }
 }
-void excluirOnibus(std::string nomeOnibus)
+void excluirOnibus(std::string nomeOnibus) // Função para excluir ônibus
 {
 
   fstream arq;
@@ -258,18 +255,18 @@ void excluirOnibus(std::string nomeOnibus)
   while (getline(arq, leitura))
   {
     vector<string> palavras = separadorLinha(leitura);
-    if (palavras[0] != nomeOnibus)
-    {
-      novaLista.push_back(leitura);
+    if (palavras[0] != nomeOnibus)  // Enquanto for diferente do ônibus procurado, adiciona 
+    {                               // a linha numa nova lista, para sobreescrever e atualizar arquivo  
+      novaLista.push_back(leitura); 
     }
-    else
+    else // Quando encontra, só marca que encontrou
     {
       encontrou = true;
     }
   }
   arq.close();
   arq.open("./Arquivos/onibus.txt", ios::out);
-  for (int i = 0; i < novaLista.size(); i++)
+  for (int i = 0; i < novaLista.size(); i++) // Sobrescreeve o arquivo com a nova lista, sem o ônibus excluido
   {
     novaLista[i] += "\n";
     arq << novaLista[i];

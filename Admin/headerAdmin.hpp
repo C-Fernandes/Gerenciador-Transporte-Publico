@@ -4,7 +4,6 @@
 #include <iostream>
 
 bool verificarAutorizacao(std::string senha);
-void listarOnibusAdmin();
 void cadastrarOnibus(std::string nomeBus);
 void listarReclamacoes();
 void buscarOnibusPorNome(std::string nomeBus);

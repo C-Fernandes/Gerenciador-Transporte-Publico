@@ -27,13 +27,13 @@ vector<string> separadorLinha(std::string frase) // Função para separar em vec
   vector<string> palavras;
   string palavra;
   istringstream separacao(frase);
-  while (getline(separacao, palavra, ';')) // Separando as palavras por -
+  while (getline(separacao, palavra, ';')) // Separando as palavras por ;
   {
     palavras.push_back(palavra);
   }
   return palavras;
 }
-void listarOnibus() // Função listar onibus pro adm
+void listarOnibus() // Função listar onibus 
 {
   fstream arq;
   string leitura, palavra;
@@ -41,7 +41,7 @@ void listarOnibus() // Função listar onibus pro adm
   arq.open("./Arquivos/onibus.txt", ios::in);
   while (getline(arq, leitura))
   {
-    vector<string> palavras = separadorLinha(leitura); // utilizando a função para printar os ônibus sem -
+    vector<string> palavras = separadorLinha(leitura); // utilizando a função para printar os ônibus sem ;
     printarOnibus(palavras);
   };
   linha();
